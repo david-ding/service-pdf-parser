@@ -1,0 +1,9 @@
+/.bundle
+
+/.DS_Store
+/.idea
+
+/vendor
+
+# ignore the archive
+/function.zip
