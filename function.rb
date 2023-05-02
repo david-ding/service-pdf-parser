@@ -7,15 +7,13 @@ require 'time'
 require 'lib/string_utils'
 
 def lambda_handler(event:, context:)
-  params = {
-    file: Base64.decode64(event["file"]),
-    regex: StringUtils.to_regexp(event["regex"])
-  }
+  file = Base64.decode64(event["file"])
+  regex = StringUtils.to_regexp(event["regex"])
 
-  reader = PDF::Reader.new(StringIO.new(params[:file]))
+  reader = PDF::Reader.new(StringIO.new(file))
   text_content = reader.pages.first.text
 
-  { statusCode: 200, body: JSON.generate(parse_text(text_content, params[:regex])) }
+  { statusCode: 200, body: JSON.generate(parse_text(text_content, regex)) }
 rescue AttachmentParserException => e
   { statusCode: 422, body: JSON.generate(error: e.message) }
 rescue Exception => e
