@@ -11,7 +11,7 @@ def lambda_handler(event:, context:)
   regex = StringUtils.to_regexp(event["regex"])
 
   reader = PDF::Reader.new(StringIO.new(file))
-  text_content = reader.pages.first.text
+  text_content = reader.pages.map(&:text).join("\n")
 
   { statusCode: 200, body: JSON.generate(parse_text(text_content, regex)) }
 rescue AttachmentParserException => e
