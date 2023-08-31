@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.7.2'
+ruby '3.2.2'
 
-gem 'pdf-reader', '1.4.0'
+gem 'pdf-reader', '2.11.0'
